@@ -16,27 +16,9 @@ public class App {
         //create and intialize object with # unicorns and iterations from user input
         Unicorns unicorns = new Unicorns(numUnicrons, numIterations);
 
-        unicorns.compute();
+         unicorns.compute();
 
-        unicorns.print();
-
-        // Random random = new Random(42);
-        // // Generate random double between -1e8 and 1e8
-        // double randomDouble = (random.nextDouble() * 2e8) - 1e8;
-
-        // // Round to nearest 0.1
-        // randomDouble = Math.round(randomDouble * 10.0) / 10.0;
-
-        // Print the result, ensuring it's displayed in decimal format
-        //System.out.printf("%.1f%n", randomDouble);  // Format to 1 decimal place
-
-
-        //System.out.println(randomDouble);
-        //System.out.println(anotherOne);
-
-        //System.out.println(string);
-
-        //object.numUnicorns object.numIterations
+         unicorns.print();
         
 
 

@@ -38,16 +38,17 @@ public class Unicorns{
     //all unicorns will be stored in here.
     public ArrayList<Unicorn> unicornList = new ArrayList<>();
 
-
-
-
     //these will be set from user in main method when object is created
     private int numUnicorns = 0;
     private int numIterations = 0;
     //create random seed so each time random is called it starts from the same place and will be reproducible
     private Random random = new Random(42);
 
-
+    /**
+     * constructor
+     * @param numUnicorns
+     * @param numIterations
+     */
     public Unicorns(int numUnicorns, int numIterations){
         //set instance variables
         this.numUnicorns = numUnicorns;
@@ -58,8 +59,6 @@ public class Unicorns{
     }
 
     
-
-
     /**
      * This method creates each unicorn object dpending on numUnicorns variable passed in by user
      * and also stores them in the sorted map
@@ -89,8 +88,6 @@ public class Unicorns{
         
 
     }
-
-
 
     /**
  * Computes things.
@@ -132,7 +129,6 @@ public void compute() {
         }
     }
 }
-
 
     /**
      * TODO:
@@ -184,5 +180,4 @@ public void compute() {
         //print
 
         //draw()
-
 }
