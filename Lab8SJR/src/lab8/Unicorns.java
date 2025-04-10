@@ -2,6 +2,7 @@ package lab8;
 import net.datastructures.SortedTableMap;
 import java.util.Random;
 import net.datastructures.ArrayList;
+import net.datastructures.Entry;
 
 /**
  * Name: Sam Reynebeau
@@ -53,7 +54,7 @@ public class Unicorns{
         this.numIterations = numIterations;
 
         //create Unicorns and store them
-        initUnicornsInMap();
+        initUnicorns();
     }
 
     
@@ -63,7 +64,7 @@ public class Unicorns{
      * This method creates each unicorn object dpending on numUnicorns variable passed in by user
      * and also stores them in the sorted map
      */
-    public void initUnicornsInMap(){
+    public void initUnicorns(){
         //iterate thru numUnicorns, initalize both maps, and store id for each unicorn
         for(int i = 0; i < numUnicorns; i++){
 
@@ -92,44 +93,46 @@ public class Unicorns{
 
 
     /**
-     * computes things
-     */
-    public void compute(){
+ * Computes things.
+ */
+public void compute() {
+    for (int i = 0; i < numIterations; i++) {
 
-        //iterate thru and re-generate each unicorn's values numIterations times
-        for(int i = 0; i < numIterations; i++)
-            //set random x coordinate for each unicorn
-            for(int j = 0; j < numUnicorns; j++){
+        // rebuild xSortedMap from current unicorn positions (no need to clear the map)
+        for (int j = 0; j < numUnicorns; j++) {
+            Unicorn realUnicorn = unicornList.get(j);
 
-                // Generate random double between -1 and 1
-                double randomDouble = (random.nextDouble(-1,1));
+            // get the current x-coordinate and remove the unicorn from that position
+            xSortedMap.remove(realUnicorn.xCoordinate);
 
+            // get closest left and right unicorns
+            Entry<Double, Unicorn> rightEntry = xSortedMap.higherEntry(realUnicorn.xCoordinate);
+            Entry<Double, Unicorn> leftEntry = xSortedMap.lowerEntry(realUnicorn.xCoordinate);
 
-                //get unicorn at specified index
-                Unicorn realUnicorn = unicornList.get(i);
-
-
-                //TODO: figure out how to compute the new unidollar value
-
-
-
-                
-                //get unicorn at key j and change it's x value to random
-                //Unicorn unicorn = xSortedMap.get(j);
-                double newXvalue = realUnicorn.xCoordinate + (randomDouble * realUnicorn.uniDollars);
-                // Round to nearest 0.1
-                newXvalue = Math.round(newXvalue * 10.0) / 10.0;
-                realUnicorn.xCoordinate = newXvalue;
-
-                //reset unicorn of that xCoordinate to changed unicorn
-                xSortedMap.put(realUnicorn.xCoordinate,realUnicorn);
-                //uSortedMap.put
-
+            if (rightEntry != null) {
+                Unicorn rightUnicorn = rightEntry.getValue();
+                realUnicorn.uniDollars += rightUnicorn.uniDollars / 2;
+                rightUnicorn.uniDollars /= 2;
             }
 
+            if (leftEntry != null) {
+                Unicorn leftUnicorn = leftEntry.getValue();
+                realUnicorn.uniDollars += leftUnicorn.uniDollars / 2;
+                leftUnicorn.uniDollars /= 2;
+            }
 
+            // move unicorn based on its uniDollars and random value
+            double randomDouble = random.nextDouble(-1, 1);
+            double newX = realUnicorn.xCoordinate + (randomDouble * realUnicorn.uniDollars);
+            newX = Math.round(newX * 10.0) / 10.0; // round to nearest 0.1
+            realUnicorn.xCoordinate = newX;
 
+            // put the unicorn back into the map at the new position
+            xSortedMap.put(realUnicorn.xCoordinate, realUnicorn);
+        }
     }
+}
+
 
     /**
      * TODO:
